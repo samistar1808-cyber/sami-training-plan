@@ -1,55 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sami's Training Plan</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #111; padding: 1.5rem 1rem 4rem; max-width: 680px; margin: 0 auto; }
+    h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
+    .day-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+    .day-tab { padding: 6px 14px; border-radius: 8px; border: 0.5px solid rgba(0,0,0,0.25); font-size: 13px; cursor: pointer; background: #fff; color: #666; transition: all 0.15s; }
+    .day-tab:hover { background: #f0f0ee; }
+    .day-tab.active { background: #3C3489; color: #EEEDFE; border-color: #3C3489; font-weight: 500; }
+    .day-tab.sport { border-color: #0F6E56; color: #0F6E56; }
+    .day-tab.sport.active { background: #0F6E56; color: #E1F5EE; border-color: #0F6E56; }
+    .day-tab.legs { border-color: #854F0B; color: #854F0B; }
+    .day-tab.legs.active { background: #854F0B; color: #FAEEDA; border-color: #854F0B; }
+    .session-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .session-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; }
+    .session-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; margin-top: 2px; }
+    .badge-push { background: #EEEDFE; color: #3C3489; }
+    .badge-pull { background: #E6F1FB; color: #185FA5; }
+    .badge-legs1 { background: #EAF3DE; color: #3B6D11; }
+    .badge-legs2 { background: #E1F5EE; color: #085041; }
+    .badge-sport { background: #E1F5EE; color: #0F6E56; }
+    .badge-rest { background: #F1EFE8; color: #5F5E5A; }
+    .session-title { font-size: 16px; font-weight: 500; color: #111; }
+    .session-sub { font-size: 13px; color: #666; margin-top: 2px; }
+    .block { margin-bottom: 1rem; }
+    .block-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .exercise-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .exercise-row:last-child { border-bottom: none; }
+    .ex-col { flex: 1; min-width: 0; }
+    .ex-name { font-size: 14px; font-weight: 500; color: #111; }
+    .ex-detail { font-size: 13px; color: #666; white-space: nowrap; padding-top: 1px; }
+    .ex-note { font-size: 12px; color: #999; margin-top: 2px; line-height: 1.5; }
+    .or-note { font-size: 12px; color: #185FA5; margin-top: 2px; font-style: italic; line-height: 1.5; }
+    .warmup-block { background: #f9f9f7; border-radius: 8px; padding: 10px 14px; margin-bottom: 1rem; font-size: 13px; color: #666; }
+    .tip-block { background: #E6F1FB; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: #0C447C; line-height: 1.6; }
+    .flex-block { background: #FAEEDA; border-radius: 8px; padding: 12px 14px; margin-top: 1rem; }
+    .flex-block .block-label { color: #854F0B; }
+    .flex-item { font-size: 13px; color: #633806; padding: 4px 0; display: flex; gap: 8px; line-height: 1.5; }
+    .flex-item::before { content: "—"; color: #BA7517; flex-shrink: 0; }
+    .note-block { background: #f9f9f7; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: #666; line-height: 1.6; }
+    .or-divider { text-align: center; font-size: 12px; color: #999; padding: 8px 0; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
 
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-.plan { padding: 1rem 0; font-family: var(--font-sans, sans-serif); }
-.day-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-.day-tab { padding: 6px 14px; border-radius: var(--border-radius-md, 8px); border: 0.5px solid var(--color-border-secondary, rgba(0,0,0,0.3)); font-size: 13px; cursor: pointer; background: var(--color-background-primary, #fff); color: var(--color-text-secondary, #666); transition: all 0.15s; }
-.day-tab:hover { background: var(--color-background-secondary, #f5f5f5); }
-.day-tab.active { background: #3C3489; color: #EEEDFE; border-color: #3C3489; font-weight: 500; }
-.day-tab.sport { border-color: #0F6E56; color: #0F6E56; }
-.day-tab.sport.active { background: #0F6E56; color: #E1F5EE; }
-.day-tab.flex { border-color: #854F0B; color: #854F0B; }
-.day-tab.flex.active { background: #854F0B; color: #FAEEDA; }
-.session-card { background: var(--color-background-primary, #fff); border: 0.5px solid var(--color-border-tertiary, rgba(0,0,0,0.15)); border-radius: var(--border-radius-lg, 12px); padding: 1.25rem; margin-bottom: 1rem; }
-.session-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
-.session-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
-.badge-push { background: #EEEDFE; color: #3C3489; }
-.badge-pull { background: #E6F1FB; color: #185FA5; }
-.badge-legs1 { background: #EAF3DE; color: #3B6D11; }
-.badge-legs2 { background: #E1F5EE; color: #085041; }
-.badge-sport { background: #E1F5EE; color: #0F6E56; }
-.session-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary, #111); }
-.session-sub { font-size: 13px; color: var(--color-text-secondary, #666); margin-top: 2px; }
-.block { margin-bottom: 1rem; }
-.block-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary, #999); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-.exercise-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary, rgba(0,0,0,0.1)); }
-.exercise-row:last-child { border-bottom: none; }
-.ex-col { flex: 1; }
-.ex-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary, #111); }
-.ex-detail { font-size: 13px; color: var(--color-text-secondary, #666); white-space: nowrap; }
-.ex-note { font-size: 12px; color: var(--color-text-tertiary, #999); margin-top: 2px; }
-.warmup-block { background: var(--color-background-secondary, #f9f9f7); border-radius: var(--border-radius-md, 8px); padding: 10px 14px; margin-bottom: 1rem; font-size: 13px; color: var(--color-text-secondary, #666); }
-.tip-block { background: #E6F1FB; border-radius: var(--border-radius-md, 8px); padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: #0C447C; line-height: 1.6; }
-.flex-block { background: #FAEEDA; border-radius: var(--border-radius-md, 8px); padding: 12px 14px; margin-top: 1rem; }
-.flex-block .block-label { color: #854F0B; }
-.flex-item { font-size: 13px; color: #633806; padding: 4px 0; display: flex; gap: 8px; }
-.flex-item::before { content: "—"; color: #BA7517; }
-.note-block { background: var(--color-background-secondary, #f9f9f7); border-radius: var(--border-radius-md, 8px); padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: var(--color-text-secondary, #666); line-height: 1.6; }
-.or-divider { text-align: center; font-size: 12px; color: var(--color-text-tertiary, #999); padding: 6px 0; }
-.hidden { display: none; }
-</style>
+  <h1>Sami's Training Plan</h1>
+  <p class="subtitle">Push · Pull · Legs A · Legs B — built around cheer + soccer</p>
 
-<div class="plan">
-  <h2 class="sr-only">Samistar's Gym Training Program</h2>
   <div class="day-tabs">
     <button class="day-tab active" onclick="show('mon',this)">Mon</button>
     <button class="day-tab" onclick="show('tue',this)">Tue</button>
     <button class="day-tab sport" onclick="show('wed',this)">Wed</button>
     <button class="day-tab sport" onclick="show('thu',this)">Thu</button>
-    <button class="day-tab flex" onclick="show('fri',this)">Fri/Sat</button>
+    <button class="day-tab legs" onclick="show('fri',this)">Fri/Sat</button>
     <button class="day-tab sport" onclick="show('sun',this)">Sun</button>
   </div>
 
+  <!-- MONDAY — PUSH -->
   <div id="mon">
     <div class="session-card">
       <div class="session-header">
@@ -62,10 +75,34 @@
       <div class="warmup-block">Warm-up: resistance band pull-aparts or stick shoulder rotations — 2 min</div>
       <div class="block">
         <div class="block-label">Working exercises</div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Dumbbell shoulder press</div><div class="ex-note">Full ROM, 3-sec lower — 8kg is your working weight now</div></div><div class="ex-detail">3 × 10 · 8kg each</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Incline chest press (machine)</div><div class="ex-note">Pause at bottom stretch, chest tall</div></div><div class="ex-detail">3 × 10–12 · 20–25kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Lateral raise (dumbbell)</div><div class="ex-note">Slow up, slow down — no swinging</div></div><div class="ex-detail">3 × 12 · 8kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Tricep straight bar cable pushdown</div><div class="ex-note">Elbows pinned to sides, full lockout at bottom</div></div><div class="ex-detail">3 × 12 · 18kg</div></div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Dumbbell shoulder press</div>
+            <div class="ex-note">Full ROM, 3-sec lower</div>
+          </div>
+          <div class="ex-detail">3 × 10 · 8kg each</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Incline chest press (machine)</div>
+            <div class="ex-note">Pause at bottom stretch, chest tall</div>
+          </div>
+          <div class="ex-detail">3 × 10–12 · 20–25kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Lateral raise (dumbbell)</div>
+            <div class="ex-note">Slow up, slow down — no swinging</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 8kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Tricep straight bar cable pushdown</div>
+            <div class="ex-note">Elbows pinned to sides, full lockout at bottom</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 18kg</div>
+        </div>
       </div>
       <div class="flex-block">
         <div class="block-label">Post-session</div>
@@ -76,24 +113,64 @@
     </div>
   </div>
 
+  <!-- TUESDAY — PULL -->
   <div id="tue" class="hidden">
     <div class="session-card">
       <div class="session-header">
         <span class="session-badge badge-pull">Pull</span>
         <div>
           <div class="session-title">Upper — Pull</div>
-          <div class="session-sub">4 exercises · 3 sets each</div>
+          <div class="session-sub">6 exercises · 3 sets each · bicep curls optional if short on time</div>
         </div>
       </div>
       <div class="warmup-block">Warm-up: resistance band rows or stick pass-throughs — 2 min</div>
       <div class="block">
         <div class="block-label">Working exercises</div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Lat pulldown (wide grip)</div><div class="ex-note">Full overhead stretch at top, 3-sec lower</div></div><div class="ex-detail">3 × 10–12 · 35kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Barbell bent over row (standing)</div><div class="ex-note">Hip hinge, chest parallel to floor, pull to lower chest</div></div><div class="ex-detail">3 × 15–20 · 20kg bar</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Back extension (hyperextension bench)</div><div class="ex-note">Hold 10kg plate to chest, controlled lower and raise</div></div><div class="ex-detail">3 × 12 · 10kg plate</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Dumbbell bicep curl</div><div class="ex-note">Full supination, slow lower — test 7kg first 2 sets</div></div><div class="ex-detail">3 × 10–12 · 6–7kg each</div></div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Assisted pull-up OR lat pulldown (wide grip)</div>
+            <div class="or-note">Pick whichever you feel like or is free — they train the same pattern</div>
+            <div class="ex-note">Pull-ups: full hang at bottom, chin over bar at top · Lat pulldown: full overhead stretch, 3-sec lower</div>
+          </div>
+          <div class="ex-detail">3 × 10 · 45kg assist / 35kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Single arm high row (machine)</div>
+            <div class="ex-note">Sit tall, pull handle from high to chest — upper back + rear delt. Drop set on last set</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 15kg + drop to 10kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Rear delt fly (cable or machine)</div>
+            <div class="ex-note">Control the return — don't let it swing forward</div>
+          </div>
+          <div class="ex-detail">3 × 12–15 · 20–25kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Barbell bent over row (standing)</div>
+            <div class="ex-note">Hip hinge, chest parallel to floor, pull to lower chest</div>
+          </div>
+          <div class="ex-detail">3 × 12–15 · 25kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Back extension (hyperextension bench)</div>
+            <div class="ex-note">Hold 10kg plate to chest, controlled lower and raise</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 10kg plate</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Dumbbell bicep curl</div>
+            <div class="ex-note">Full supination, slow lower — optional if short on time</div>
+          </div>
+          <div class="ex-detail">3 × 10–12 · 6–7kg each</div>
+        </div>
       </div>
-      <div class="tip-block">Bent over row — bar is already 20kg. When 15+ reps feel easy, ask for 2.5kg plates to add each side. Most gyms have them tucked away.</div>
+      <div class="tip-block">Pull-up progression — aim to reduce assistance over time. 45kg → 40kg → 35kg every few weeks. Unassisted pull-ups will come. Bent over row: when 12–15 reps feel easy, add 2.5kg each side.</div>
       <div class="flex-block">
         <div class="block-label">Post-session</div>
         <div class="flex-item">Bridge hold — 3 × 30 sec, focus on thoracic extension</div>
@@ -103,6 +180,7 @@
     </div>
   </div>
 
+  <!-- WEDNESDAY — CHEER -->
   <div id="wed" class="hidden">
     <div class="session-card">
       <div class="session-header">
@@ -122,6 +200,7 @@
     </div>
   </div>
 
+  <!-- THURSDAY — SOCCER -->
   <div id="thu" class="hidden">
     <div class="session-card">
       <div class="session-header">
@@ -140,6 +219,7 @@
     </div>
   </div>
 
+  <!-- FRIDAY / SATURDAY — LEGS A + B -->
   <div id="fri" class="hidden">
     <div class="session-card">
       <div class="session-header">
@@ -152,10 +232,34 @@
       <div class="warmup-block">Warm-up: Stairmaster 5 min</div>
       <div class="block">
         <div class="block-label">Working exercises</div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Hip thrust / glute bridge (barbell)</div><div class="ex-note">Working range 80–90kg, building toward 100kg+</div></div><div class="ex-detail">3 × 12 · 80–90kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Hack squat or leg press</div><div class="ex-note">Full depth, 3-sec lower, pause at bottom</div></div><div class="ex-detail">3 × 10 · 70–80kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Bulgarian split squat</div><div class="ex-note">Hip flexor stretch at bottom — 1 sec pause</div></div><div class="ex-detail">3 × 8 each · 10–12kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Leg extension</div><div class="ex-note">Full ROM, slow lower — quad finisher</div></div><div class="ex-detail">3 × 12 · 45–50kg</div></div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Hip thrust / glute bridge (barbell)</div>
+            <div class="ex-note">Working range 80–90kg, building toward 100kg+</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 80–90kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Hack squat or leg press</div>
+            <div class="ex-note">Full depth, 3-sec lower, pause at bottom</div>
+          </div>
+          <div class="ex-detail">3 × 10 · 70–80kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Bulgarian split squat</div>
+            <div class="ex-note">Hip flexor stretch at bottom — 1 sec pause</div>
+          </div>
+          <div class="ex-detail">3 × 8 each · 10–12kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Leg extension</div>
+            <div class="ex-note">Full ROM, slow lower — quad finisher</div>
+          </div>
+          <div class="ex-detail">3 × 12 · 45–50kg</div>
+        </div>
       </div>
       <div class="flex-block">
         <div class="block-label">Post-session flexibility</div>
@@ -178,10 +282,34 @@
       <div class="warmup-block">Warm-up: Stairmaster 5 min</div>
       <div class="block">
         <div class="block-label">Working exercises</div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Romanian deadlift (RDL)</div><div class="ex-note">Hamstring length under load — key for needle + oversplit</div></div><div class="ex-detail">3 × 10 · 30–40kg</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Leg curl (seated or lying)</div><div class="ex-note">Slow lower, full stretch at bottom</div></div><div class="ex-detail">3 × 12 · moderate</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Adductor machine</div><div class="ex-note">Wide start position — direct split strength</div></div><div class="ex-detail">3 × 12 · moderate</div></div>
-        <div class="exercise-row"><div class="ex-col"><div class="ex-name">Kettlebell adductor lunge</div><div class="ex-note">Slow, controlled — feel the inner thigh stretch</div></div><div class="ex-detail">3 × 10 each · moderate KB</div></div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Romanian deadlift (RDL)</div>
+            <div class="ex-note">Hamstring length under load — key for needle + oversplit</div>
+          </div>
+          <div class="ex-detail">3 × 10 · 30–40kg</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Leg curl (seated or lying)</div>
+            <div class="ex-note">Slow lower, full stretch at bottom</div>
+          </div>
+          <div class="ex-detail">3 × 12 · moderate</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Adductor machine</div>
+            <div class="ex-note">Wide start position — direct split strength</div>
+          </div>
+          <div class="ex-detail">3 × 12 · moderate</div>
+        </div>
+        <div class="exercise-row">
+          <div class="ex-col">
+            <div class="ex-name">Kettlebell adductor lunge</div>
+            <div class="ex-note">Slow, controlled — feel the inner thigh stretch</div>
+          </div>
+          <div class="ex-detail">3 × 10 each · moderate KB</div>
+        </div>
       </div>
       <div class="flex-block">
         <div class="block-label">Post-session flexibility</div>
@@ -192,6 +320,7 @@
     </div>
   </div>
 
+  <!-- SUNDAY — SOCCER GAME -->
   <div id="sun" class="hidden">
     <div class="session-card">
       <div class="session-header">
@@ -204,15 +333,19 @@
       <div class="note-block">Performance day. Warm up well, hydrate, protein + carbs within 60 min of finishing. Light static stretch post-game is fine.</div>
     </div>
   </div>
-</div>
 
-<script>
-function show(day, btn) {
-  ['mon','tue','wed','thu','fri','sun'].forEach(d => {
-    const el = document.getElementById(d);
-    if (el) el.classList.toggle('hidden', d !== day);
-  });
-  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-}
-</script>
+  <script>
+    function show(day, btn) {
+      ['mon','tue','wed','thu','fri','sun'].forEach(function(d) {
+        var el = document.getElementById(d);
+        if (el) el.classList.toggle('hidden', d !== day);
+      });
+      document.querySelectorAll('.day-tab').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
