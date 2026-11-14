@@ -1,351 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sami's Training Plan</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #111; padding: 1.5rem 1rem 4rem; max-width: 680px; margin: 0 auto; }
-    h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
-    .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
-    .day-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-    .day-tab { padding: 6px 14px; border-radius: 8px; border: 0.5px solid rgba(0,0,0,0.25); font-size: 13px; cursor: pointer; background: #fff; color: #666; transition: all 0.15s; }
-    .day-tab:hover { background: #f0f0ee; }
-    .day-tab.active { background: #3C3489; color: #EEEDFE; border-color: #3C3489; font-weight: 500; }
-    .day-tab.sport { border-color: #0F6E56; color: #0F6E56; }
-    .day-tab.sport.active { background: #0F6E56; color: #E1F5EE; border-color: #0F6E56; }
-    .day-tab.legs { border-color: #854F0B; color: #854F0B; }
-    .day-tab.legs.active { background: #854F0B; color: #FAEEDA; border-color: #854F0B; }
-    .session-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
-    .session-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; }
-    .session-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; margin-top: 2px; }
-    .badge-push { background: #EEEDFE; color: #3C3489; }
-    .badge-pull { background: #E6F1FB; color: #185FA5; }
-    .badge-legs1 { background: #EAF3DE; color: #3B6D11; }
-    .badge-legs2 { background: #E1F5EE; color: #085041; }
-    .badge-sport { background: #E1F5EE; color: #0F6E56; }
-    .badge-rest { background: #F1EFE8; color: #5F5E5A; }
-    .session-title { font-size: 16px; font-weight: 500; color: #111; }
-    .session-sub { font-size: 13px; color: #666; margin-top: 2px; }
-    .block { margin-bottom: 1rem; }
-    .block-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-    .exercise-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
-    .exercise-row:last-child { border-bottom: none; }
-    .ex-col { flex: 1; min-width: 0; }
-    .ex-name { font-size: 14px; font-weight: 500; color: #111; }
-    .ex-detail { font-size: 13px; color: #666; white-space: nowrap; padding-top: 1px; }
-    .ex-note { font-size: 12px; color: #999; margin-top: 2px; line-height: 1.5; }
-    .or-note { font-size: 12px; color: #185FA5; margin-top: 2px; font-style: italic; line-height: 1.5; }
-    .warmup-block { background: #f9f9f7; border-radius: 8px; padding: 10px 14px; margin-bottom: 1rem; font-size: 13px; color: #666; }
-    .tip-block { background: #E6F1FB; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: #0C447C; line-height: 1.6; }
-    .flex-block { background: #FAEEDA; border-radius: 8px; padding: 12px 14px; margin-top: 1rem; }
-    .flex-block .block-label { color: #854F0B; }
-    .flex-item { font-size: 13px; color: #633806; padding: 4px 0; display: flex; gap: 8px; line-height: 1.5; }
-    .flex-item::before { content: "—"; color: #BA7517; flex-shrink: 0; }
-    .note-block { background: #f9f9f7; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; font-size: 13px; color: #666; line-height: 1.6; }
-    .or-divider { text-align: center; font-size: 12px; color: #999; padding: 8px 0; }
-    .hidden { display: none; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sami's Training Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF4EB; --paper:#FFFBF7;
+    --pink:#F48FB1; --pink-soft:#FDDDE7; --hot:#E2457A;
+    --maroon:#6E1D3B; --maroon-deep:#43101F;
+    --orange:#F47B2A; --orange-soft:#FDDCC2; --peach:#F9A86E;
+    --coral:#E0564B; --coral-soft:#FAD6D1;
+    --ink:#2B0D17; --muted:#8A5A66; --line:rgba(110,29,59,.12);
+    --sans:'DM Sans',system-ui,sans-serif; --display:'Bricolage Grotesque','DM Sans',system-ui,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+  button,input{font-family:var(--sans)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 16px 80px}
+  h1,h2,h3{font-family:var(--display)}
+
+  /* hero */
+  .hero{position:relative;height:170px;margin:0 -16px;overflow:hidden}
+  .hero svg{position:absolute;inset:0;width:100%;height:100%}
+  .title-block{position:relative;margin-top:-50px;padding:0 4px 20px}
+  h1{font-size:44px;line-height:.95;font-weight:800;color:var(--maroon);letter-spacing:-.02em}
+  h1 span{color:var(--hot)}
+
+  /* today card */
+  .next{background:var(--maroon);color:var(--cream);border-radius:22px;padding:18px;position:relative;overflow:hidden;margin-bottom:12px}
+  .next::after{content:"";position:absolute;right:-40px;bottom:-60px;width:170px;height:170px;border-radius:46% 54% 60% 40%;background:var(--hot);opacity:.85}
+  .next::before{content:"";position:absolute;right:70px;top:-30px;width:80px;height:80px;border-radius:50%;background:var(--orange);opacity:.9}
+  .next>*{position:relative;z-index:1}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+  .next h2{font-size:34px;font-weight:800;margin:4px 0 2px}
+  .next p{font-size:13px;opacity:.85;max-width:68%}
+  .go{margin-top:12px;background:var(--cream);color:var(--maroon);border:none;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:3px 3px 0 var(--orange)}
+
+  /* morning card */
+  .morning{background:var(--orange-soft);border-radius:20px;padding:14px 16px;margin-bottom:12px}
+  .morning summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:700;font-size:16px;color:var(--maroon)}
+  .morning summary::-webkit-details-marker{display:none}
+  .morning summary::after{content:"+";font-size:22px;line-height:1}
+  .morning[open] summary::after{content:"–"}
+  .morning ul{list-style:none;margin-top:10px}
+  .morning li{font-size:13.5px;line-height:1.5;padding:6px 0;border-top:1.5px dashed rgba(110,29,59,.15);display:flex;gap:10px}
+  .morning li b{flex:0 0 58px;color:var(--maroon);font-size:12.5px}
+
+  /* week */
+  .goals{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .goal{border:2px solid var(--cream);background:transparent;color:var(--cream);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;cursor:pointer}
+  .goal.got{background:var(--c);border-color:var(--c);color:var(--maroon-deep)}
+  .goal.bonus{border-style:dashed}
+  .week{background:var(--paper);border-radius:20px;padding:6px 12px 12px;border:1.5px solid var(--line);margin-bottom:18px}
+  .week-title{font-family:var(--display);font-weight:700;font-size:16px;color:var(--maroon);padding:8px 2px 8px}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .day{border-radius:12px;padding:7px 3px 7px;text-align:center;background:var(--cream);min-height:104px;display:flex;flex-direction:column;align-items:center}
+  .day.open{background:var(--orange-soft)}
+  .day.today{outline:2px solid var(--maroon);outline-offset:-1px}
+  .day b{display:block;font-size:13px;color:var(--maroon);margin-bottom:3px}
+  .day .anchor{display:block;white-space:nowrap;font-size:9.5px;color:var(--muted);line-height:1.2;margin-top:2px}
+  .dfoot{margin-top:auto;display:flex;flex-direction:column;gap:3px;align-items:center;width:100%}
+  .window{display:block;background:var(--paper);color:var(--maroon);font-weight:700;font-size:9.5px;line-height:1.15;padding:3px 4px;border-radius:8px;width:100%}
+  .done-chip{display:block;color:var(--maroon-deep);font-weight:700;font-size:9.5px;padding:3px 2px;border-radius:8px;border:1.5px solid var(--maroon-deep);width:100%}
+
+  /* tabs */
+  .tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;margin-bottom:6px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1.5px solid var(--maroon);background:var(--paper);color:var(--maroon);border-radius:999px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:7px}
+  .tab .dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--maroon-deep)}
+  .tab.active{background:var(--maroon);color:var(--cream);box-shadow:3px 3px 0 var(--orange)}
+
+  /* session card */
+  .card{background:var(--paper);border-radius:24px;overflow:hidden;border:1.5px solid var(--line)}
+  .card-head{position:relative;padding:20px 18px 18px;overflow:hidden;color:var(--maroon-deep)}
+  .blob1,.blob2{position:absolute;border-radius:48% 52% 38% 62%/55% 41% 59% 45%}
+  .blob1{width:150px;height:130px;right:-30px;top:-40px;opacity:.9}
+  .blob2{width:70px;height:60px;right:100px;bottom:-25px;opacity:.8}
+  .card-head>*:not(.blob1):not(.blob2){position:relative;z-index:1}
+  .card-head h2{font-size:30px;font-weight:800}
+  .card-head .sub{font-size:13px;font-weight:500;margin-top:2px;opacity:.85}
+  .card-body{padding:4px 18px 18px}
+  .step{margin-top:18px}
+  .label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .num{width:20px;height:20px;border-radius:50%;background:var(--maroon);color:var(--cream);display:grid;place-items:center;font-size:11px;letter-spacing:0}
+  .warm{display:flex;gap:10px;align-items:flex-start;background:var(--cream);border-radius:14px;padding:11px 13px;font-size:13.5px;line-height:1.45}
+
+  .ex{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1.5px dashed var(--line);cursor:pointer;user-select:none}
+  .ex:last-child{border-bottom:none}
+  .box{flex:0 0 24px;height:24px;border-radius:8px;border:2px solid var(--maroon);margin-top:1px;display:grid;place-items:center;transition:all .15s;background:var(--paper)}
+  .box svg{width:14px;height:14px;opacity:0;transition:opacity .15s}
+  .ex.done .box{background:var(--maroon)}
+  .ex.done .box svg{opacity:1}
+  .ex.done .ex-name{text-decoration:line-through;text-decoration-thickness:2px;opacity:.55}
+  .ex-main{flex:1;min-width:0}
+  .ex-name{font-weight:700;font-size:15px}
+  .ex-note{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45}
+  .ex-right{text-align:right;flex:0 0 auto}
+  .sets{font-size:13px;font-weight:700;color:var(--maroon);white-space:nowrap}
+  .kg{margin-top:5px;width:84px;border:1.5px solid var(--line);border-radius:9px;padding:5px 7px;font-weight:500;font-size:12.5px;text-align:right;background:var(--cream);color:var(--ink)}
+  .kg:focus{outline:2px solid var(--orange);border-color:transparent}
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--pink-soft);color:var(--maroon);margin-left:6px;vertical-align:2px}
+
+  .opt{border-radius:16px;padding:4px 13px 6px;margin-top:4px}
+  .opt .or{font-size:11px;font-weight:700;color:var(--muted);text-align:center;letter-spacing:.1em;padding:2px 0}
+  .superset{border:2px dashed var(--pink);border-radius:16px;padding:4px 12px;margin:8px 0}
+  .superset .ex:last-child{border-bottom:none}
+  .superset .or{font-size:11px;font-weight:700;color:var(--hot);text-align:center;letter-spacing:.1em;padding:6px 0 0}
+  .seg{display:flex;background:var(--paper);border-radius:999px;padding:3px;margin:6px 0 4px;border:1.5px solid var(--line)}
+  .segbtn{flex:1;border:none;background:transparent;border-radius:999px;padding:8px;font-weight:700;font-size:13.5px;color:var(--maroon);cursor:pointer}
+  .segbtn.on{background:var(--maroon);color:var(--cream)}
+  .finisher{border-radius:16px;padding:2px 13px;background:var(--maroon);color:var(--cream)}
+  .finisher .ex{border-bottom-color:rgba(255,244,235,.18)}
+  .finisher .ex-name{color:var(--cream)}
+  .finisher .ex-note,.finisher .sets{color:var(--cream);opacity:.8}
+  .finisher .box{border-color:var(--cream);background:transparent}
+  .finisher .ex.done .box{background:var(--orange);border-color:var(--orange)}
+  .tag.must{background:var(--maroon);color:var(--cream)}
+  .finisher .tag{background:rgba(255,244,235,.18);color:var(--cream)}
+  .flex{background:var(--orange-soft);border-radius:16px;padding:4px 13px}
+  .flex .box{border-radius:50%}
+  .flex-intro{font-size:12.5px;color:var(--maroon-deep);padding:10px 0 2px;line-height:1.45}
+  .caution{margin-top:14px;background:var(--coral-soft);border-left:5px solid var(--coral);border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--maroon-deep)}
+  .tip{margin-top:12px;background:var(--pink-soft);border-radius:12px;padding:11px 13px;font-size:13px;line-height:1.5;color:var(--maroon-deep)}
+
+  .done-row{margin-top:18px;display:flex;gap:10px;align-items:center}
+  .btn{border:none;border-radius:999px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer;background:var(--hot);color:var(--paper);box-shadow:3px 3px 0 var(--maroon)}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--maroon)}
+  .btn.logged{background:var(--maroon);box-shadow:3px 3px 0 var(--orange)}
+  .link{background:none;border:none;color:var(--muted);font-weight:500;font-size:13px;text-decoration:underline;cursor:pointer}
+  footer{margin-top:28px;text-align:center;font-size:12px;color:var(--muted)}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-  <h1>Sami's Training Plan</h1>
-  <p class="subtitle">Push · Pull · Legs A · Legs B — built around cheer + soccer</p>
-
-  <div class="day-tabs">
-    <button class="day-tab active" onclick="show('mon',this)">Mon</button>
-    <button class="day-tab" onclick="show('tue',this)">Tue</button>
-    <button class="day-tab sport" onclick="show('wed',this)">Wed</button>
-    <button class="day-tab sport" onclick="show('thu',this)">Thu</button>
-    <button class="day-tab legs" onclick="show('fri',this)">Fri/Sat</button>
-    <button class="day-tab sport" onclick="show('sun',this)">Sun</button>
+  <div class="hero" aria-hidden="true">
+    <svg viewBox="0 0 680 170" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <filter id="paint" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="7"/>
+          <feDisplacementMap in="SourceGraphic" scale="22"/>
+        </filter>
+        <filter id="paint2" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/>
+          <feDisplacementMap in="SourceGraphic" scale="10"/>
+        </filter>
+      </defs>
+      <g filter="url(#paint)">
+        <path d="M-40,-30 L300,-30 C320,40 250,90 160,98 C80,106 10,84 -40,66Z" fill="#F48FB1"/>
+        <circle cx="575" cy="45" r="95" fill="#F47B2A"/>
+        <path d="M430,-30 C470,10 520,5 560,-30Z" fill="#E2457A"/>
+        <path d="M640,95 C700,55 720,135 720,190 L560,190 C580,150 600,115 640,95Z" fill="#6E1D3B"/>
+        <ellipse cx="380" cy="36" rx="48" ry="34" fill="#FDDDE7"/>
+        <ellipse cx="660" cy="18" rx="34" ry="26" fill="#F9A86E"/>
+      </g>
+      <g filter="url(#paint2)" fill="none" stroke-linecap="round">
+        <path d="M250,125 C320,95 400,140 470,108" stroke="#E2457A" stroke-width="13"/>
+        <path d="M455,140 C500,130 520,150 548,140" stroke="#F47B2A" stroke-width="8"/>
+      </g>
+    </svg>
   </div>
 
-  <!-- MONDAY — PUSH -->
-  <div id="mon">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-push">Push</span>
-        <div>
-          <div class="session-title">Upper — Push</div>
-          <div class="session-sub">4 exercises · 3 sets each</div>
-        </div>
-      </div>
-      <div class="warmup-block">Warm-up: resistance band pull-aparts or stick shoulder rotations — 2 min</div>
-      <div class="block">
-        <div class="block-label">Working exercises</div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Dumbbell shoulder press</div>
-            <div class="ex-note">Full ROM, 3-sec lower</div>
-          </div>
-          <div class="ex-detail">3 × 10-12 · 9kg each</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Incline chest press (machine)</div>
-            <div class="ex-note">Pause at bottom stretch, chest tall</div>
-          </div>
-          <div class="ex-detail">3 × 10–12 · 25kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Lateral raise (dumbbell)</div>
-            <div class="ex-note">Slow up, slow down — no swinging</div>
-          </div>
-          <div class="ex-detail">3 × 12 · 8kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Tricep straight bar cable pushdown</div>
-            <div class="ex-note">Elbows pinned to sides, full lockout at bottom</div>
-          </div>
-          <div class="ex-detail">3 × 12 · 18kg</div>
-        </div>
-      </div>
-      <div class="flex-block">
-        <div class="block-label">Post-session</div>
-        <div class="flex-item">Bridge practice — 3 × 30 sec, push thoracic extension</div>
-        <div class="flex-item">Scorpion from seated pigeon — right side unassisted attempts, left side two-arm reach</div>
-        <div class="flex-item">Thread the needle — 5 rotations each side</div>
-      </div>
-    </div>
+  <div class="title-block">
+    <h1>Sami's<br><span>Training</span> Plan</h1>
   </div>
 
-  <!-- TUESDAY — PULL -->
-  <div id="tue" class="hidden">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-pull">Pull</span>
-        <div>
-          <div class="session-title">Upper — Pull</div>
-          <div class="session-sub">6 exercises · 3 sets each · bicep curls optional if short on time</div>
-        </div>
-      </div>
-      <div class="warmup-block">Warm-up: resistance band rows or stick pass-throughs — 2 min</div>
-      <div class="block">
-        <div class="block-label">Working exercises</div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Assisted pull-up OR lat pulldown (wide grip)</div>
-            <div class="or-note">Pick whichever you feel like or is free — they train the same pattern</div>
-            <div class="ex-note">Pull-ups: full hang at bottom, chin over bar at top · Lat pulldown: full overhead stretch, 3-sec lower</div>
-          </div>
-          <div class="ex-detail">3 × 10 · 45-49kg assist</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Single arm high row (machine)</div>
-            <div class="ex-note">Sit tall, pull handle from high to chest — upper back + rear delt. Drop set on last set</div>
-          </div>
-          <div class="ex-detail">3 × 12 · 15kg + drop to 10kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Rear delt fly (cable or machine)</div>
-            <div class="ex-note">Control the return — don't let it swing forward</div>
-          </div>
-          <div class="ex-detail">3 × 12–15 · 25kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Barbell bent over row (standing)</div>
-            <div class="ex-note">Hip hinge, chest parallel to floor, pull to lower chest</div>
-          </div>
-          <div class="ex-detail">3 × 12–15 · extra 5kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Back extension (hyperextension bench)</div>
-            <div class="ex-note">Hold 10kg plate to chest, controlled lower and raise</div>
-          </div>
-          <div class="ex-detail">3 × 12 · 10kg plate</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Dumbbell bicep curl</div>
-            <div class="ex-note">Full supination, slow lower — optional if short on time</div>
-          </div>
-          <div class="ex-detail">3 × 10–12 · 6–7kg each</div>
-        </div>
-      </div>
-      <div class="tip-block">Pull-up progression — aim to reduce assistance over time. 45kg → 40kg → 35kg every few weeks. Unassisted pull-ups will come. Bent over row: when 12–15 reps feel easy, add 2.5kg each side.</div>
-      <div class="flex-block">
-        <div class="block-label">Post-session</div>
-        <div class="flex-item">Bridge hold — 3 × 30 sec, focus on thoracic extension</div>
-        <div class="flex-item">Scorpion from seated pigeon — right side unassisted, left side two-arm reach</div>
-        <div class="flex-item">Camel pose into wheel attempt if feeling good</div>
-      </div>
-    </div>
-  </div>
+  <div class="next" id="next"></div>
 
-  <!-- WEDNESDAY — CHEER -->
-  <div id="wed" class="hidden">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-sport">Sport</span>
-        <div>
-          <div class="session-title">Cheer training 7–10pm</div>
-          <div class="session-sub">No gym</div>
-        </div>
-      </div>
-      <div class="note-block">Focus on performance and recovery nutrition. Optional 10 min hip flexor + shoulder warm-up before 7pm only if energy allows.</div>
-      <div class="flex-block">
-        <div class="block-label">Optional morning (10 min max)</div>
-        <div class="flex-item">Couch stretch, 90/90, pigeon — hip flexor series</div>
-        <div class="flex-item">Shoulder CARs</div>
-        <div class="flex-item">Standing needle prep — hamstring + opposite hip flexor</div>
-      </div>
-    </div>
-  </div>
+  <details class="morning">
+    <summary>Morning gym: getting going</summary>
+    <ul>
+      <li><b>Night before</b><span>Lay out gym clothes, pack your bag and fill your water bottle.</span></li>
+      <li><b>On waking</b><span>A big glass of water first thing. Coffee 30–60 min before you train if you want it.</span></li>
+      <li><b>~7:45–8am</b><span>Small, light breakfast 60–90 min before: banana + Greek yoghurt, toast with honey or peanut butter, or a small bowl of oats.</span></li>
+      <li><b>No appetite?</b><span>Even a banana or a slice of toast on the way is better than nothing.</span></li>
+      <li><b>After</b><span>Protein + carbs within a couple of hours, like eggs on toast or a protein yoghurt bowl.</span></li>
+    </ul>
+  </details>
 
-  <!-- THURSDAY — SOCCER -->
-  <div id="thu" class="hidden">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-sport">Sport</span>
-        <div>
-          <div class="session-title">Soccer training</div>
-          <div class="session-sub">No gym</div>
-        </div>
-      </div>
-      <div class="note-block">Arrive fresh. Protein + carbs before, sleep after. Optional flexibility only if legs genuinely feel good post-session.</div>
-      <div class="flex-block">
-        <div class="block-label">Optional post-session only</div>
-        <div class="flex-item">Front split hold — 1 min each side</div>
-        <div class="flex-item">Oversplit on elevated surface — 1 min each side</div>
-      </div>
-    </div>
-  </div>
+  <div class="week"><div class="week-title">When I can gym</div><div class="days" id="days"></div></div>
 
-  <!-- FRIDAY / SATURDAY — LEGS A + B -->
-  <div id="fri" class="hidden">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-legs1">Legs A</span>
-        <div>
-          <div class="session-title">Glutes + quads — Friday or Saturday</div>
-          <div class="session-sub">4 exercises · 3 sets each · skip if cheer/soccer game</div>
-        </div>
-      </div>
-      <div class="warmup-block">Warm-up: Stairmaster 5 min</div>
-      <div class="block">
-        <div class="block-label">Working exercises</div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Hip thrust / glute bridge (barbell)</div>
-            <div class="ex-note">Working range 90-100kg, building toward 100kg+</div>
-          </div>
-          <div class="ex-detail">4 × 12 · 90-100kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Hack squat or leg press</div>
-            <div class="ex-note">Full depth, 3-sec lower, pause at bottom</div>
-          </div>
-          <div class="ex-detail">3 × 10 · 70–80kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Bulgarian split squat</div>
-            <div class="ex-note">Hip flexor stretch at bottom — 1 sec pause</div>
-          </div>
-          <div class="ex-detail">3 × 8 each · 15kg dumbbell</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Leg extension</div>
-            <div class="ex-note">Full ROM, slow lower — quad finisher</div>
-          </div>
-          <div class="ex-detail">3 × 12 · 55kg</div>
-        </div>
-      </div>
-      <div class="flex-block">
-        <div class="block-label">Post-session flexibility</div>
-        <div class="flex-item">Front split hold — 1 min each side</div>
-        <div class="flex-item">Oversplit hold (front foot elevated) — 1 min each side</div>
-        <div class="flex-item">Standing front leg hold prep — wall-assisted, 30 sec each</div>
-      </div>
-    </div>
+  <nav class="tabs" id="tabs"></nav>
+  <main id="view"></main>
 
-    <div class="or-divider">— do Legs B on the other day if no game —</div>
+  <footer>Ticks reset every day · weights you type are remembered on this device</footer>
+</div>
 
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-legs2">Legs B</span>
-        <div>
-          <div class="session-title">Hamstrings + adductors — Friday or Saturday</div>
-          <div class="session-sub">4 exercises · 3 sets each · skip if cheer/soccer game</div>
-        </div>
-      </div>
-      <div class="warmup-block">Warm-up: Stairmaster 5 min</div>
-      <div class="block">
-        <div class="block-label">Working exercises</div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Romanian deadlift (RDL)</div>
-            <div class="ex-note">Hamstring length under load — key for needle + oversplit</div>
-          </div>
-          <div class="ex-detail">3 × 10 · 30–40kg</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Leg curl (seated or lying)</div>
-            <div class="ex-note">Slow lower, full stretch at bottom</div>
-          </div>
-          <div class="ex-detail">3 × 12 · moderate</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Adductor machine</div>
-            <div class="ex-note">Wide start position — direct split strength</div>
-          </div>
-          <div class="ex-detail">3 × 12 · moderate</div>
-        </div>
-        <div class="exercise-row">
-          <div class="ex-col">
-            <div class="ex-name">Kettlebell adductor lunge</div>
-            <div class="ex-note">Slow, controlled — feel the inner thigh stretch</div>
-          </div>
-          <div class="ex-detail">3 × 10 each · moderate KB</div>
-        </div>
-      </div>
-      <div class="flex-block">
-        <div class="block-label">Post-session flexibility</div>
-        <div class="flex-item">Front split hold — 1 min each side</div>
-        <div class="flex-item">Oversplit hold (front foot elevated) — 1 min each side</div>
-        <div class="flex-item">Active needle stretch — supine, 3 × 30 sec each side</div>
-      </div>
-    </div>
-  </div>
+<script>
+/* storage, with in-memory fallback */
+const mem = {};
+const S = {
+  get(k, d){ try{ const v = localStorage.getItem('sami.'+k); return v ? JSON.parse(v) : d; }catch(e){ return k in mem ? mem[k] : d; } },
+  set(k, v){ try{ localStorage.setItem('sami.'+k, JSON.stringify(v)); }catch(e){ mem[k] = v; } }
+};
+const pad = n => String(n).padStart(2,'0');
+const iso = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const NOW = new Date(), TODAY = iso(NOW);
 
-  <!-- SUNDAY — SOCCER GAME -->
-  <div id="sun" class="hidden">
-    <div class="session-card">
-      <div class="session-header">
-        <span class="session-badge badge-sport">Sport</span>
-        <div>
-          <div class="session-title">Soccer game</div>
-          <div class="session-sub">No gym</div>
-        </div>
-      </div>
-      <div class="note-block">Performance day. Warm up well, hydrate, protein + carbs within 60 min of finishing. Light static stretch post-game is fine.</div>
-    </div>
-  </div>
+/* ---------- shared blocks ---------- */
+const WALK = '15 min walk';
+const PUSHUPS = {id:'pushups', n:'10 push-ups', note:'Straight line head to heels. Use a bench if form breaks. When 10 feels easy, go to 12.', d:'1 × 10'};
+const CARRY = {id:'carry', n:'Dumbbell farmer\'s walk', tag:'if time', note:'Heavy dumbbells, walk tall, shoulders down and back. Good for posture and grip', d:'2 × 30m', w:''};
 
-  <script>
-    function show(day, btn) {
-      ['mon','tue','wed','thu','fri','sun'].forEach(function(d) {
-        var el = document.getElementById(d);
-        if (el) el.classList.toggle('hidden', d !== day);
-      });
-      document.querySelectorAll('.day-tab').forEach(function(t) {
-        t.classList.remove('active');
-      });
-      btn.classList.add('active');
-    }
-  </script>
+const STRETCH = [
+  {id:'lungeham', n:'Lunge to standing hamstring', note:'Low lunge, then straighten the front leg and fold over it. Rock between the two, 5 each side'},
+  {id:'ninety', n:'90/90 hip switches', note:'Internal + external rotation. Switch side to side slowly, 8 each way'},
+  {id:'hipflex', n:'Hip flexor stretch', note:'Half-kneeling or couch stretch, squeeze the back glute, 30–45 sec each'},
+  {id:'adductor', n:'Adductor stretch', note:'Frog or wide side lunge, 45 sec'},
+  {id:'penche', n:'Penché', note:'One each leg, slow and controlled'},
+  {id:'straddlelift', n:'Straddle leg lifts', note:'In a middle straddle, hands either side of one leg, lift it with your hip. 5 each side. Builds toward straddle press'},
+  {id:'splits', n:'Split holds', note:'Front splits each side + middle, 1 min each. Skip if you\'re sore'},
+  {id:'cobra', n:'Cobra rocks + bow pose', note:'Rock around in cobra, lift the back legs, then bow pose. Gentle. Skip if the area under your ribs is irritated'}
+];
 
+/* ---------- sessions ---------- */
+const SESSIONS = {
+  push: {
+    tab:'Push', title:'Shoulders + Arms', sub:'Delts · triceps · biceps', color:'#F48FB1', soft:'#FDDDE7', b1:'#E2457A', b2:'#F47B2A',
+    warm:WALK+', then 2 min band pull-aparts or stick shoulder rotations.',
+    ex:[
+      {id:'shpress', n:'Dumbbell shoulder press', note:'Full range, 3 sec lowering', d:'3 × 10–12', w:'9kg each'},
+      {id:'clateral', n:'Cable lateral raise', note:'One arm at a time, cable at hip height. Slow up, slow down', d:'3 × 12–15 each', w:''},
+      {pair:[
+        {id:'pushdown', n:'Tricep straight-bar pushdown', note:'Elbows pinned, full lockout', d:'3 × 12', w:'18kg'},
+        {id:'ohext', n:'Overhead cable tricep extension', note:'Long stretch behind your head. Great for push-ups', d:'3 × 12', w:''}
+      ]},
+      {id:'curl', n:'Dumbbell bicep curl', note:'Full supination, slow lowering', d:'3 × 10–12', w:'6–7kg'}
+    ],
+    opt:[
+      {id:'reardeltP', n:'Rear delt fly (cable or machine)', note:'Rounder shoulders from behind. Control the return', d:'3 × 12–15', w:'25kg'},
+      {id:'incline', n:'Incline chest press (machine)', note:'If you want some chest', d:'3 × 10–12', w:'25kg'}
+    ],
+    core:{id:'deadbug', n:'Dead bug', note:'Exhale fully, lower back stays down', d:'2 × 8 each'}
+  },
+  pull: {
+    tab:'Pull', title:'Upper Pull', sub:'Lats · upper back · rear delts · biceps', color:'#F9A86E', soft:'#FDDCC2', b1:'#6E1D3B', b2:'#E2457A',
+    warm:WALK+', then 2 min band rows or stick pass-throughs.',
+    ex:[
+      {id:'pullup', n:'Assisted pull-up OR wide lat pulldown', note:'Whichever is free. Full stretch at the bottom, 3 sec lowering', d:'3 × 10', w:'45kg assist'},
+      {id:'highrow', n:'Single-arm high row (machine)', note:'Sit tall, pull high to chest. Drop set on the last set', d:'3 × 12', w:'15 → 10kg'},
+      {id:'bbrow', n:'Barbell bent-over row', note:'Hinge, chest near parallel, pull to lower chest', d:'3 × 12–15', w:'bar + 5kg'},
+      {id:'curl', n:'Dumbbell bicep curl', note:'Full supination, slow lowering', d:'3 × 10–12', w:'6–7kg'}
+    ],
+    opt:[
+      {id:'reardelt', n:'Rear delt fly (cable or machine)', note:'Control the return, no swinging', d:'3 × 12–15', w:'25kg'},
+      {id:'backext', n:'Back extension', note:'Plate to chest, controlled', d:'3 × 12', w:'10kg plate'}
+    ],
+    core:{id:'pallof', n:'Pallof press', note:'Cable at chest height, press out and resist the twist. Breathe normally', d:'2 × 10 each'},
+    caution:'Since September: breathe out as you pull rather than holding your breath. If the area under your ribs gets irritated, go lighter or stop, and get it checked if it keeps happening.'
+  },
+  legs: {
+    tab:'Legs', title:'Legs Day', sub:'Glutes + inner/outer thighs every time, then pick hamstrings or quads', color:'#F47B2A', soft:'#FDDCC2', b1:'#F48FB1', b2:'#6E1D3B',
+    warm:WALK+' on the incline.',
+    ex:[
+      {id:'bss', n:'Bulgarian split squat', tag:'must', note:'1 sec pause in the bottom stretch. Lean slightly forward for more glute', d:'3 × 8 each', w:'15kg DB'},
+      {id:'thrust', n:'Barbell hip thrust', tag:'must', note:'Pause at the top, ribs down, chin tucked', d:'3 × 12', w:'90–100kg'},
+      {id:'abduct', n:'Hip abduction machine', note:'Side glutes. Swap for cable kickbacks sometimes for variety', d:'3 × 12–15', w:''},
+      {id:'adduct', n:'Adductor machine', note:'Inner thighs. Widest start you can control', d:'3 × 12', w:''}
+    ],
+    opt:[],
+    focus:{
+      ham:{label:'Hamstrings', ex:[
+        {id:'rdl', n:'Romanian deadlift', note:'Hamstring length under load. Great for splits', d:'3 × 10', w:'30–40kg'},
+        {id:'legcurl', n:'Leg curl', note:'Slow lowering, full stretch at the bottom', d:'3 × 12', w:''}
+      ]},
+      quad:{label:'Quads', ex:[
+        {id:'legext', n:'Leg extension', note:'Full range, slow lowering', d:'3 × 12', w:'55kg'},
+        {id:'hack', n:'Hack squat or leg press', note:'Full depth, 3 sec lowering', d:'3 × 10', w:'70–80kg'}
+      ]}
+    },
+    core:{id:'sideplank', n:'Side plank', note:'Hips high, long line. Top leg lifted if easy', d:'2 × 30 sec each'},
+    tip:'One leg day is plenty. Cheer, futsal and kicks already give your legs a lot of work. Any free window works. If you can, avoid doing it right before futsal or cheer, but don\'t stress about it.'
+  },
+  kicks: {
+    tab:'Kicks', title:'Kicks Day', sub:'Stretch and splits first, then kicks', color:'#FDDDE7', soft:'#FDDDE7', b1:'#F47B2A', b2:'#E2457A',
+    warm:'30–45 min brisk walk. Get properly warm before stretching.',
+    stretchFirst:true,
+    extraStretch:[{id:'oversplitK', n:'Oversplits', note:'Front foot elevated, 1 min each side. Only once you\'re fully warm'}],
+    ex:[
+      {id:'stepkick', n:'Step-behind step kicks', note:'Tall posture, controlled up AND down', d:'3 × 8 each'},
+      {id:'cornerkick', n:'Kicks from the corner', note:'Travel across the floor from the corner', d:'2–3 lengths'},
+      {id:'skicks', n:'Side kicks', note:'Hips square, kick through the heel', d:'3 × 8 each'},
+      {id:'leghold', n:'Leg hold attempts', note:'Hold the leg up as high as you can control', d:'3 × 10–20 sec each'}
+    ],
+    opt:[{id:'walloversplit', n:'Wall oversplits', note:'If you want to. Back leg up the wall, ease in, 30–60 sec each'}],
+    core:{id:'birddog', n:'Bird dog', note:'Slow, hips level', d:'2 × 8 each'},
+    noCarry:true
+  }
+};
+const DOT = k => SESSIONS[k].color;
+const WEEK = {
+  1:{c:['Internship 9–5','Hapkido 7–9pm'], gym:null},
+  2:{c:['Free'], gym:'Gym any time'},
+  3:{c:['Cheer 7–10pm'], gym:'Gym AM'},
+  4:{c:['Work 9–5'], gym:'Gym PM'},
+  5:{c:['Work 9–5','Futsal 7–8:30'], gym:null},
+  6:{c:['Free'], gym:'Gym any time'},
+  0:{c:['Rest'], gym:null}
+};
+const GOAL = ['push','pull','legs'];
+
+/* ---------- state ---------- */
+let history = S.get('history', []);
+let weights = S.get('weights', {});
+let ticks = S.get('ticks-'+TODAY, {});
+let current = S.get('tab2', null);
+try{ Object.keys(localStorage).forEach(k=>{ if(k.startsWith('sami.ticks-') && k!=='sami.ticks-'+TODAY) localStorage.removeItem(k); }); }catch(e){}
+
+function weekDates(){
+  const mon = new Date(NOW); mon.setDate(NOW.getDate() - ((NOW.getDay()+6)%7));
+  return [...Array(7)].map((_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
+}
+const YESTERDAY = (()=>{ const d=new Date(NOW); d.setDate(d.getDate()-1); return iso(d); })();
+function doneThisWeek(k){ const w = weekDates().map(iso); return history.some(h=>h.s===k && w.includes(h.d)); }
+function firstOpen(){ return GOAL.find(k=>!doneThisWeek(k)) || 'push'; }
+
+/* ---------- render ---------- */
+function renderTop(){
+  const done = GOAL.filter(doneThisWeek).length, kicks = doneThisWeek('kicks');
+  const msg = done===3 ? 'All three done. Anything else this week is a bonus.' :
+    'Any order, any free window. Two in a busy week is still a good week.';
+  document.getElementById('next').innerHTML =
+    `<div class="eyebrow">This week</div><h2>${done} of 3 done</h2><p>${msg}</p>
+     <div class="goals">${GOAL.map(k=>{ const d=doneThisWeek(k);
+        return `<button class="goal ${d?'got':''}" data-open="${k}" style="--c:${SESSIONS[k].color}">${d?'✓ ':''}${SESSIONS[k].tab}</button>`;}).join('')}
+       <button class="goal bonus ${kicks?'got':''}" data-open="kicks" style="--c:${SESSIONS.kicks.color}">${kicks?'✓ ':'+ '}Kicks</button></div>`;
+  const L = ['M','T','W','T','F','S','S'];
+  document.getElementById('days').innerHTML = weekDates().map((d,i)=>{
+    const key = iso(d), w = WEEK[d.getDay()], logged = history.filter(h=>h.d===key && SESSIONS[h.s]);
+    return `<div class="day ${key===TODAY?'today':''} ${w.gym?'open':''}"><b>${L[i]}</b>
+      ${w.c.map(c=>`<span class="anchor">${c.replace(' ','<br>')}</span>`).join('')}
+      <div class="dfoot">${logged.length ? logged.map(h=>`<span class="done-chip" style="background:${DOT(h.s)}">${SESSIONS[h.s].tab}</span>`).join('')
+        : (w.gym ? `<span class="window">${w.gym}</span>` : '')}</div></div>`;
+  }).join('');
+  document.getElementById('tabs').innerHTML = Object.keys(SESSIONS).map(t=>
+    `<button class="tab ${t===current?'active':''}" data-tab="${t}"><span class="dot" style="background:${DOT(t)}"></span>${SESSIONS[t].tab}</button>`).join('');
+}
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#FFF4EB" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function row(sk, e, withWeight){
+  const id = sk+'.'+e.id, hasW = withWeight && e.w !== undefined;
+  return `<div class="ex ${ticks[id]?'done':''}" data-tick="${id}"><span class="box">${CHECK}</span>
+    <div class="ex-main"><div class="ex-name">${e.n}${e.tag?`<span class="tag ${e.tag==='must'?'must':''}">${e.tag}</span>`:''}</div>${e.note?`<div class="ex-note">${e.note}</div>`:''}</div>
+    <div class="ex-right">${e.d?`<div class="sets">${e.d}</div>`:''}${hasW?`<input class="kg" data-w="${e.id}" value="${weights[e.id]||''}" placeholder="${e.w||'kg'}" aria-label="Weight used">`:''}</div></div>`;
+}
+function mainBlock(k,s,step,label){
+  return `<div class="step">${step(label)}${s.ex.map(e=>e.pair?`<div class="superset"><div class="or">SUPERSET · ALTERNATE, REST AFTER BOTH</div>${e.pair.map(x=>row(k,x,true)).join('')}</div>`:row(k,e,true)).join('')}
+    ${s.focus?focusBlock(k,s):''}
+    ${s.opt.length?`<div class="opt" style="background:${s.soft}"><div class="or">${k==='kicks'?'OPTIONAL':'OPTIONAL 5TH'}${s.opt.length>1?' · PICK ONE':''}</div>${s.opt.map(e=>row(k,e,true)).join('<div class="or">OR</div>')}</div>`:''}</div>`;
+}
+let focus = S.get('focus','ham');
+function focusBlock(k,s){
+  const f = s.focus[focus];
+  return `<div class="opt" style="background:${s.soft}"><div class="or">PICK TODAY'S FOCUS · DO 1 OR BOTH</div>
+    <div class="seg">${Object.keys(s.focus).map(key=>`<button class="segbtn ${key===focus?'on':''}" data-focus="${key}">${s.focus[key].label}</button>`).join('')}</div>
+    ${f.ex.map(e=>row(k,e,true)).join('')}</div>`;
+}
+function finishBlock(k,s,step){
+  const fin = [PUSHUPS, s.core].concat(s.noCarry?[]:[CARRY]);
+  return `<div class="step">${step('Finish')}<div class="finisher">${fin.map(e=>row(k,e,true)).join('')}</div></div>`;
+}
+function stretchBlock(k,s,step,label){
+  return `<div class="step">${step(label)}<div class="flex"><div class="flex-intro">${k==='kicks'?'Your stretch musts, then oversplits.':'Same every session. Do what you can if you\'re sore.'}</div>${STRETCH.concat(s.extraStretch||[]).map(e=>row(k,e,false)).join('')}</div></div>`;
+}
+function renderSession(k){
+  const s = SESSIONS[k], loggedOn = [TODAY,YESTERDAY].find(d=>history.some(h=>h.d===d && h.s===k)), logged = !!loggedOn;
+  let n = 0; const step = t => `<div class="label"><span class="num">${++n}</span>${t}</div>`;
+  return `<article class="card">
+    <header class="card-head" style="background:${s.color}"><span class="blob1" style="background:${s.b1}"></span><span class="blob2" style="background:${s.b2}"></span>
+      <h2>${s.title}</h2><div class="sub">${s.sub}</div></header>
+    <div class="card-body">
+      <div class="step">${step('Warm up')}<div class="warm">🚶‍♀️ <span>${s.warm}</span></div></div>
+      ${s.stretchFirst ? stretchBlock(k,s,step,'Stretch + splits') + mainBlock(k,s,step,'Kicks') + finishBlock(k,s,step)
+                       : mainBlock(k,s,step,'Main 4') + finishBlock(k,s,step) + stretchBlock(k,s,step,'Stretch musts')}
+      ${s.caution?`<div class="caution"><b>Take care:</b> ${s.caution}</div>`:''}
+      ${s.tip?`<div class="tip">${s.tip}</div>`:''}
+      <div class="done-row"><button class="btn ${logged?'logged':''}" data-log="${k}" data-day="${TODAY}">${logged?(loggedOn===TODAY?'Done today ✓':'Done yesterday ✓'):'Mark session done'}</button>
+        ${logged?`<button class="link" data-unlog="${k}" data-day="${loggedOn}">undo</button>`:`<button class="link" data-log="${k}" data-day="${YESTERDAY}">I did this yesterday</button>`}</div>
+    </div></article>`;
+}
+function render(){
+  if(!current || !SESSIONS[current]) current = firstOpen();
+  renderTop();
+  document.getElementById('view').innerHTML = renderSession(current);
+}
+document.addEventListener('click', e=>{
+  const t = e.target;
+  if(t.closest('.kg')) return;
+  const fb = t.closest('[data-focus]'); if(fb){ focus = fb.dataset.focus; S.set('focus',focus); render(); return; }
+  const tab = t.closest('[data-tab]'); if(tab){ current = tab.dataset.tab; S.set('tab2', current); render(); return; }
+  const open = t.closest('[data-open]'); if(open){ current = open.dataset.open; S.set('tab2', current); render(); document.getElementById('tabs').scrollIntoView({behavior:'smooth'}); return; }
+  const tk = t.closest('[data-tick]'); if(tk){ const id=tk.dataset.tick; ticks[id]=!ticks[id]; S.set('ticks-'+TODAY, ticks); tk.classList.toggle('done', ticks[id]); return; }
+  const lg = t.closest('[data-log]'); if(lg){ const k=lg.dataset.log, d=lg.dataset.day; if(!history.some(h=>h.d===d&&h.s===k)){ history.push({d:d,s:k}); history.sort((a,b)=>a.d<b.d?-1:1); S.set('history',history);} render(); return; }
+  const ul = t.closest('[data-unlog]'); if(ul){ const k=ul.dataset.unlog, d=ul.dataset.day; const i=history.map(h=>h.d+h.s).lastIndexOf(d+k); if(i>-1){ history.splice(i,1); S.set('history',history);} render(); }
+});
+document.addEventListener('input', e=>{ if(e.target.matches('.kg')){ weights[e.target.dataset.w]=e.target.value; S.set('weights',weights); } });
+render();
+</script>
 </body>
 </html>
